@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TeamComponent } from '../components/team/team.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
+      {
+        path: 'team/:id',
+        component: TeamComponent
+      },
       {
         path: 'capability',
         data: { pageTitle: 'Capabilities' },

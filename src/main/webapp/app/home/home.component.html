@@ -30,7 +30,7 @@
       <tbody>
         <ng-container *ngIf="teams$ | async as teams">
           <ng-container *ngFor="let team of teams">
-            <tr>
+            <tr (click)="navigateTo(['team', team.id || ''])">
               <td>{{team.name}}</td>
               <td>{{team.coach}}</td>
               <td>{{team.advocate}}</td>

@@ -6,6 +6,7 @@ import { Account } from 'app/core/auth/account.model';
 import { ApiService } from '../services/api.service';
 import { Observable } from 'rxjs';
 import { Team } from '../entities/team/team.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-home',
@@ -16,7 +17,10 @@ export class HomeComponent implements OnInit {
   account: Account | null = null;
   teams$: Observable<Team[]> | undefined;
 
-  constructor(private accountService: AccountService, private loginService: LoginService, private apiService: ApiService) {}
+  constructor(private accountService: AccountService,
+              private loginService: LoginService,
+              private apiService: ApiService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => (this.account = account));
@@ -26,5 +30,9 @@ export class HomeComponent implements OnInit {
 
   login(): void {
     this.loginService.login();
+  }
+
+  navigateTo(path: string[]): void {
+    this.router.navigate(path);
   }
 }
