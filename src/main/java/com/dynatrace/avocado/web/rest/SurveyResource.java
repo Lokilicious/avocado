@@ -4,6 +4,7 @@ import com.dynatrace.avocado.domain.Survey;
 import com.dynatrace.avocado.repository.SurveyRepository;
 import com.dynatrace.avocado.utils.ExcelTable;
 import com.dynatrace.avocado.utils.ExcelUtils;
+import com.dynatrace.avocado.utils.SurveyUtils;
 import com.dynatrace.avocado.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,11 +77,16 @@ public class SurveyResource {
     @PostMapping("/teams/{teamId}/survey/import")
     public ResponseEntity<Survey> importExcel(
         @PathVariable(value = "teamId", required = true) final UUID teamId,
-        @RequestParam("file") final MultipartFile file) throws IOException {
+        @RequestParam("file") final MultipartFile file) throws IOException, URISyntaxException {
 
         ExcelTable table = ExcelUtils.parseExcel(file.getInputStream());
+        Survey survey = SurveyUtils.createSurvey(table);
 
-        return null;
+        Survey result = surveyRepository.save(survey);
+        return ResponseEntity
+            .created(new URI("/api/surveys/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**

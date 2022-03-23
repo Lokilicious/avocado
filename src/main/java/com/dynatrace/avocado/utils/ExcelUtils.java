@@ -22,9 +22,17 @@ public class ExcelUtils {
                     table.getColumns()
                         .add(new ExcelColumn(cell.getStringCellValue()));
                 } else {
-                    table.getColumns()
-                        .get(cell.getColumnIndex())
-                        .addValue(cell.getStringCellValue());
+                    String val = "";
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_NUMERIC:
+                            val = String.valueOf(cell.getNumericCellValue());
+                        break;
+                        case Cell.CELL_TYPE_STRING:
+                            val = cell.getStringCellValue();
+                        break;
+                        default: val = "";
+                    }
+                    table.getColumns().get(cell.getColumnIndex()).addValue(val);
                 }
             }
         }
@@ -32,20 +40,5 @@ public class ExcelUtils {
         return table;
     }
 
-    public static int parseValue(String s) {
-        switch (s) {
-            case "No":
-                return 1;
-            case "Partly":
-                return 2;
-            case "Yes":
-                return 3;
-            default:
-                try {
-                    return Integer.parseInt(s);
-                } catch (NumberFormatException e) {
-                    return 0;
-                }
-        }
-    }
+
 }
