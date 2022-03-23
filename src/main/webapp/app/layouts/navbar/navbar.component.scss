@@ -5,22 +5,31 @@
 Navbar
 ========================================================================== */
 
-.navbar-version {
-  font-size: 0.65em;
-  color: $navbar-dark-color;
-}
-
 .profile-image {
   height: 1.75em;
   width: 1.75em;
 }
 
+.navbar-brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .navbar {
   padding: 0.2rem 1rem;
+  background: #81B823;
 
   a.nav-link {
     font-weight: 400;
+    color: #3A1A13;
   }
+}
+
+.navbar-title {
+  margin-left: 20px;
+  font-weight: normal;
+  color: #3A1A13;
 }
 
 /* ==========================================================================
@@ -31,6 +40,6 @@ Logo styles
   width: 45px;
   display: inline-block;
   vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  background: url('../../../content/images/avocado.png') no-repeat center center;
   background-size: contain;
 }
