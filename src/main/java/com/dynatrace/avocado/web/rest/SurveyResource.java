@@ -2,21 +2,35 @@ package com.dynatrace.avocado.web.rest;
 
 import com.dynatrace.avocado.domain.Survey;
 import com.dynatrace.avocado.repository.SurveyRepository;
+import com.dynatrace.avocado.utils.ExcelTable;
+import com.dynatrace.avocado.utils.ExcelUtils;
 import com.dynatrace.avocado.web.rest.errors.BadRequestAlertException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.ResponseUtil;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.dynatrace.avocado.domain.Survey}.
@@ -57,6 +71,16 @@ public class SurveyResource {
             .created(new URI("/api/surveys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/teams/{teamId}/survey/import")
+    public ResponseEntity<Survey> importExcel(
+        @PathVariable(value = "teamId", required = true) final UUID teamId,
+        @RequestParam("file") final MultipartFile file) throws IOException {
+
+        ExcelTable table = ExcelUtils.parseExcel(file.getInputStream());
+
+        return null;
     }
 
     /**
