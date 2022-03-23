@@ -11,15 +11,15 @@ public class ExcelColumn {
         this.header = header;
     }
 
-    void addValue(String value) {
+    public void addValue(String value) {
         values.add(value);
     }
 
-    List<String> getValues() {
+    public List<String> getValues() {
         return values;
     }
 
-    String getHeader() {
+    public String getHeader() {
         return header;
     }
 }

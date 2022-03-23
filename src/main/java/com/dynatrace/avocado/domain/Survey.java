@@ -28,7 +28,7 @@ public class Survey implements Serializable {
     @Column(name = "created_date")
     private Instant createdDate;
 
-    @OneToMany(mappedBy = "survey")
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties(value = { "question", "survey" }, allowSetters = true)
     private Set<Answer> answers = new HashSet<>();
 

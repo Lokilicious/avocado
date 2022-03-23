@@ -36,6 +36,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.dynatrace.avocado.service.SurveyService;
+
 /**
  * REST controller for managing {@link com.dynatrace.avocado.domain.Survey}.
  */
@@ -54,8 +56,10 @@ public class SurveyResource {
     private final SurveyRepository surveyRepository;
     private final TeamRepository teamRepository;
     private final QuestionRepository questionRepository;
+    private final SurveyService surveyService;
 
-    public SurveyResource(SurveyRepository surveyRepository, QuestionRepository questionRepository, TeamRepository teamRepository) {
+    public SurveyResource(SurveyService surveyService, SurveyRepository surveyRepository, QuestionRepository questionRepository, TeamRepository teamRepository) {
+        this.surveyService = surveyService;
         this.surveyRepository = surveyRepository;
         this.questionRepository = questionRepository;
         this.teamRepository = teamRepository;
@@ -93,7 +97,7 @@ public class SurveyResource {
         ExcelTable table = ExcelUtils.parseExcel(file.getInputStream());
         
         Team team = teamRepository.getById(teamId);
-        Survey survey = SurveyUtils.createSurvey(table, team);
+        Survey survey = surveyService.createSurvey(table, team);
 
         Survey result = surveyRepository.save(survey);
         return ResponseEntity
