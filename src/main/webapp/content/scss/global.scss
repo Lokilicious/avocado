@@ -43,6 +43,24 @@ a:hover {
   color: $dropdown-link-hover-color;
 }
 
+button.btn-primary,
+button.btn-primary:hover,
+button.btn-primary:active,
+button.btn-primary:focus {
+  color: #ffffff;
+}
+
+table {
+  thead {
+    background: $primary;
+
+    tr th {
+      color: #ffffff;
+      font-weight: normal;
+    }
+  }
+}
+
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
