@@ -26,6 +26,13 @@ Navbar
   }
 }
 
+a,
+a:hover, a:focus, a:active {
+  fa-icon {
+    color: #3A1A13;
+  }
+}
+
 .navbar-title {
   margin-left: 20px;
   font-weight: normal;

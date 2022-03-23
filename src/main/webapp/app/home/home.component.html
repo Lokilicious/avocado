@@ -1,7 +1,10 @@
-<div class="col">
+<div class="col" *ngIf="account">
   <div class="row mb-5">
     <div class="col">
-      <button type="button" class="btn btn-primary"><fa-icon class="me-2" icon="plus"></fa-icon>Create new team</button>
+      <button type="button" class="btn btn-primary">
+        <fa-icon class="me-2" icon="plus"></fa-icon>
+        Create new team
+      </button>
     </div>
     <div class="col">
       <div class="input-group">
@@ -11,13 +14,43 @@
     </div>
   </div>
   <div class="row">
-    <table class="table">
+    <div class="container">
+    <table class="table clickable">
       <thead>
-        <tr>
-          <th>Team</th>
-          <th>Coach</th>
-        </tr>
+      <tr>
+        <th>Team</th>
+        <th>Coach</th>
+        <th>Advocate</th>
+        <th>Currently Coached</th>
+        <th># Members</th>
+        <th>Created on</th>
+        <th>Edit / Delete</th>
+      </tr>
       </thead>
+      <tbody>
+        <ng-container *ngIf="teams$ | async as teams">
+          <ng-container *ngFor="let team of teams">
+            <tr>
+              <td>{{team.name}}</td>
+              <td>{{team.coach}}</td>
+              <td>{{team.advocate}}</td>
+              <td class="align-text-center">
+                <fa-icon *ngIf="team.currentlyCoached" icon="check"></fa-icon>
+              </td>
+              <td>{{team.numMembers}}</td>
+              <td>{{team.createdDate}}</td>
+              <td class="align-text-center">
+                <a [routerLink]="['/']"><fa-icon class="me-3" icon="pencil"></fa-icon></a>
+                <a [routerLink]="['/']"><fa-icon class="me-3" icon="trash-can"></fa-icon></a>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
     </table>
+    </div>
   </div>
+</div>
+<div *ngIf="!account">
+  <h2>Please log in to continue</h2>
 </div>
