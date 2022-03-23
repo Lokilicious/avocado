@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="survey">
+      <h2 data-cy="surveyDetailsHeading"><span>Survey</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ survey.id }}</span>
+        </dd>
+        <dt><span>Survey Date</span></dt>
+        <dd>
+          <span>{{ survey.surveyDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+          <span>{{ survey.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Team</span></dt>
+        <dd>
+          <div *ngIf="survey.team">
+            <a [routerLink]="['/team', survey.team?.id, 'view']">{{ survey.team?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/survey', survey.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20220323091849",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "question",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Question",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "sLABlock",
+      "otherEntityRelationshipName": "question",
+      "relationshipName": "slaBlock",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

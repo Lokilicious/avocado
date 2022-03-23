@@ -1,0 +1,57 @@
+{
+  "applications": "*",
+  "changelogDate": "20220323091847",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "team",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "advocate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coach",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currentlyCoached",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "numMembers",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Team",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "survey",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "survey",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "capability",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "capability",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

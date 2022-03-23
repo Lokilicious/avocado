@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20220323091846",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "capability",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Capability",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "capability",
+      "relationshipName": "team",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

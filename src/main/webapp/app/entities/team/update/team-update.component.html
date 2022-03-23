@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-team-heading" data-cy="TeamCreateUpdateHeading">Create or edit a Team</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_advocate">Advocate</label>
+          <input type="text" class="form-control" name="advocate" id="field_advocate" data-cy="advocate" formControlName="advocate" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_coach">Coach</label>
+          <input type="text" class="form-control" name="coach" id="field_coach" data-cy="coach" formControlName="coach" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_currentlyCoached">Currently Coached</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="currentlyCoached"
+            id="field_currentlyCoached"
+            data-cy="currentlyCoached"
+            formControlName="currentlyCoached"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_numMembers">Num Members</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numMembers"
+            id="field_numMembers"
+            data-cy="numMembers"
+            formControlName="numMembers"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_createdDate">Created Date</label>
+          <div class="d-flex">
+            <input
+              id="field_createdDate"
+              data-cy="createdDate"
+              type="datetime-local"
+              class="form-control"
+              name="createdDate"
+              formControlName="createdDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_capability">Capability</label>
+          <select class="form-control" id="field_capability" data-cy="capability" name="capability" formControlName="capability">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                capabilityOption.id === editForm.get('capability')!.value?.id ? editForm.get('capability')!.value : capabilityOption
+              "
+              *ngFor="let capabilityOption of capabilitiesSharedCollection; trackBy: trackCapabilityById"
+            >
+              {{ capabilityOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

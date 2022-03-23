@@ -1,0 +1,59 @@
+
+
+entity Capability {
+	id UUID
+    name String
+}
+
+entity Team {
+	id UUID
+    name String
+    advocate String
+    coach String
+    currentlyCoached Boolean
+    numMembers Long
+    createdDate Instant
+}
+
+entity  Survey {
+	id UUID
+	surveyDate Instant
+    createdDate Instant
+}
+
+entity Question {
+	id UUID
+    text String
+}
+
+entity Answer {
+	id UUID
+	numResponses Long
+    resultNumeric Double
+    resultString String
+}
+
+entity SLABlock{
+	id UUID
+    name String
+}
+
+relationship OneToMany {
+	Team to Survey {team}
+}
+
+relationship ManyToOne {
+	Answer {question} to Question
+}
+
+relationship OneToMany {
+	Survey {answer} to Answer
+}
+
+relationship ManyToOne {
+	Question {slaBlock} to SLABlock
+}
+
+relationship OneToMany {
+	Capability to Team {capability}
+}

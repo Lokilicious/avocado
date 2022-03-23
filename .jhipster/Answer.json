@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20220323091850",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "answer",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "numResponses",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "resultNumeric",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "resultString",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Answer",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "answer",
+      "relationshipName": "question",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "survey",
+      "otherEntityRelationshipName": "answer",
+      "relationshipName": "survey",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-answer-heading" data-cy="AnswerCreateUpdateHeading">Create or edit a Answer</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_numResponses">Num Responses</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numResponses"
+            id="field_numResponses"
+            data-cy="numResponses"
+            formControlName="numResponses"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_resultNumeric">Result Numeric</label>
+          <input
+            type="number"
+            class="form-control"
+            name="resultNumeric"
+            id="field_resultNumeric"
+            data-cy="resultNumeric"
+            formControlName="resultNumeric"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_resultString">Result String</label>
+          <input
+            type="text"
+            class="form-control"
+            name="resultString"
+            id="field_resultString"
+            data-cy="resultString"
+            formControlName="resultString"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_question">Question</label>
+          <select class="form-control" id="field_question" data-cy="question" name="question" formControlName="question">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="questionOption.id === editForm.get('question')!.value?.id ? editForm.get('question')!.value : questionOption"
+              *ngFor="let questionOption of questionsSharedCollection; trackBy: trackQuestionById"
+            >
+              {{ questionOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_survey">Survey</label>
+          <select class="form-control" id="field_survey" data-cy="survey" name="survey" formControlName="survey">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="surveyOption.id === editForm.get('survey')!.value?.id ? editForm.get('survey')!.value : surveyOption"
+              *ngFor="let surveyOption of surveysSharedCollection; trackBy: trackSurveyById"
+            >
+              {{ surveyOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="team">
+      <h2 data-cy="teamDetailsHeading"><span>Team</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ team.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ team.name }}</span>
+        </dd>
+        <dt><span>Advocate</span></dt>
+        <dd>
+          <span>{{ team.advocate }}</span>
+        </dd>
+        <dt><span>Coach</span></dt>
+        <dd>
+          <span>{{ team.coach }}</span>
+        </dd>
+        <dt><span>Currently Coached</span></dt>
+        <dd>
+          <span>{{ team.currentlyCoached }}</span>
+        </dd>
+        <dt><span>Num Members</span></dt>
+        <dd>
+          <span>{{ team.numMembers }}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+          <span>{{ team.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Capability</span></dt>
+        <dd>
+          <div *ngIf="team.capability">
+            <a [routerLink]="['/capability', team.capability?.id, 'view']">{{ team.capability?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team', team.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

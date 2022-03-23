@@ -1,0 +1,24 @@
+{
+  "applications": "*",
+  "changelogDate": "20220323091851",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sla_block",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "SLABlock",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}
