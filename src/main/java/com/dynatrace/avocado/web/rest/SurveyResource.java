@@ -1,7 +1,10 @@
 package com.dynatrace.avocado.web.rest;
 
 import com.dynatrace.avocado.domain.Survey;
+import com.dynatrace.avocado.domain.Team;
+import com.dynatrace.avocado.repository.QuestionRepository;
 import com.dynatrace.avocado.repository.SurveyRepository;
+import com.dynatrace.avocado.repository.TeamRepository;
 import com.dynatrace.avocado.utils.ExcelTable;
 import com.dynatrace.avocado.utils.ExcelUtils;
 import com.dynatrace.avocado.utils.SurveyUtils;
@@ -49,9 +52,13 @@ public class SurveyResource {
     private String applicationName;
 
     private final SurveyRepository surveyRepository;
+    private final TeamRepository teamRepository;
+    private final QuestionRepository questionRepository;
 
-    public SurveyResource(SurveyRepository surveyRepository) {
+    public SurveyResource(SurveyRepository surveyRepository, QuestionRepository questionRepository, TeamRepository teamRepository) {
         this.surveyRepository = surveyRepository;
+        this.questionRepository = questionRepository;
+        this.teamRepository = teamRepository;
     }
 
     /**
@@ -74,13 +81,19 @@ public class SurveyResource {
             .body(result);
     }
 
-    @PostMapping("/teams/{teamId}/survey/import")
+    @PostMapping(value = "/teams/{teamId}/survey/import", consumes = { "multipart/form-data" })
     public ResponseEntity<Survey> importExcel(
         @PathVariable(value = "teamId", required = true) final UUID teamId,
         @RequestParam("file") final MultipartFile file) throws IOException, URISyntaxException {
 
+        if(file == null){
+            throw new BadRequestAlertException("Invalid file", ENTITY_NAME, "filenull");
+        }
+
         ExcelTable table = ExcelUtils.parseExcel(file.getInputStream());
-        Survey survey = SurveyUtils.createSurvey(table);
+        
+        Team team = teamRepository.getById(teamId);
+        Survey survey = SurveyUtils.createSurvey(table, team);
 
         Survey result = surveyRepository.save(survey);
         return ResponseEntity

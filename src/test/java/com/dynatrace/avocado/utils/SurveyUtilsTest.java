@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.dynatrace.avocado.domain.Survey;
+import com.dynatrace.avocado.domain.Team;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +19,7 @@ class SurveyUtilsTest {
         
         // when
 
-        Survey actual = SurveyUtils.createSurvey(table);
+        Survey actual = SurveyUtils.createSurvey(table, new Team());
         
 
         // then
