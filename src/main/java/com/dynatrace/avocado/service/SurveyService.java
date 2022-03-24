@@ -51,9 +51,8 @@ public class SurveyService {
             if(q.isEmpty()){
                 Question question = new Question();
                 question.setText(c.getHeader());
-                question.setId(UUID.randomUUID());
-                questionRepository.save(question);
-                answer.setQuestion(question);
+                //question.setId(UUID.randomUUID());
+                answer.setQuestion(questionRepository.saveAndFlush(question));
             } else {
                 answer.setQuestion(q.get());
             }
