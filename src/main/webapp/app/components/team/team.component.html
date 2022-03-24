@@ -5,13 +5,15 @@
     <th>Question</th>
     <th *ngFor="let survey of surveys">{{survey.surveyDate}}</th>
   </tr>
-  </thead>
+  </thead>  
   <tbody>
-  <ng-container >
     <ng-container *ngFor="let survey of surveys">
-      <tr>{{survey.answers}}</tr>
+      <tr *ngFor="let answer of survey.answers">
+        <td>{{answer.question?.text}}</td>
+        
+        <td>{{answer.resultNumeric | number: '1.2-2'}}</td>
+      </tr>
     </ng-container>
-  </ng-container>
   </tbody>
 </table>
 </ng-container>

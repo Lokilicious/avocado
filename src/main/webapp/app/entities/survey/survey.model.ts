@@ -1,6 +1,7 @@
 import dayjs from 'dayjs/esm';
 import { IAnswer } from 'app/entities/answer/answer.model';
 import { ITeam } from 'app/entities/team/team.model';
+import { IQuestion } from '../question/question.model';
 
 export interface ISurvey {
   id?: string;
