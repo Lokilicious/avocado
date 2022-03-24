@@ -1,13 +1,16 @@
 package com.dynatrace.avocado.web.rest;
 
+import com.dynatrace.avocado.domain.Survey;
 import com.dynatrace.avocado.domain.Team;
 import com.dynatrace.avocado.repository.TeamRepository;
 import com.dynatrace.avocado.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,6 +174,16 @@ public class TeamResource {
         log.debug("REST request to get Team : {}", id);
         Optional<Team> team = teamRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(team);
+    }
+
+    @GetMapping("/teams/{teamId}/surveys")
+    public List<Survey> getSurveysForTeam(@PathVariable(value = "teamId", required = true) final UUID teamId) {
+        //Optional<Team> team = teamRepository.findById(id);
+        List<Survey> surveys = new ArrayList<Survey>();
+        if(teamRepository.findById(teamId).isPresent()){
+            surveys = new ArrayList<Survey>(teamRepository.findById(teamId).get().getSurveys());
+        }
+        return surveys;
     }
 
     /**
