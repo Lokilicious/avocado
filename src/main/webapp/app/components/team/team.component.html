@@ -1,0 +1,17 @@
+<ng-container *ngIf="surveys$ | async as surveys">
+<table class="table">
+  <thead>
+  <tr>
+    <th>Question</th>
+    <th *ngFor="let survey of surveys">{{survey.surveyDate}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container >
+    <ng-container *ngFor="let survey of surveys">
+      <tr>{{survey.answers}}</tr>
+    </ng-container>
+  </ng-container>
+  </tbody>
+</table>
+</ng-container>

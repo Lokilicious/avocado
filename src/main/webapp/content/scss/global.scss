@@ -43,6 +43,47 @@ a:hover {
   color: $dropdown-link-hover-color;
 }
 
+button.btn-primary,
+button.btn-primary:hover,
+button.btn-primary:active,
+button.btn-primary:focus {
+  color: #ffffff;
+}
+
+table {
+  thead {
+    background: $primary;
+
+    tr th {
+      color: #ffffff;
+      font-weight: normal;
+    }
+  }
+}
+
+table.clickable {
+  tbody {
+    tr:hover {
+      background: #ededed;
+      cursor: pointer;
+    }
+  }
+}
+
+.align-text-center {
+  text-align: center;
+}
+
+
+a fa-icon {
+  color: $primary;
+}
+a:hover, a:focus, a:active {
+  fa-icon {
+    color: darken($primary, 10%);
+  }
+}
+
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
