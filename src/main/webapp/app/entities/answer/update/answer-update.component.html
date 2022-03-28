@@ -48,6 +48,11 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" for="field_order">Order</label>
+          <input type="number" class="form-control" name="order" id="field_order" data-cy="order" formControlName="order" />
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" for="field_question">Question</label>
           <select class="form-control" id="field_question" data-cy="question" name="question" formControlName="question">
             <option [ngValue]="null"></option>

@@ -28,6 +28,9 @@ public class Answer implements Serializable {
     @Column(name = "result_string")
     private String resultString;
 
+    @Column(name = "jhi_order")
+    private Long order;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "slaBlock" }, allowSetters = true)
     private Question question;
@@ -90,6 +93,19 @@ public class Answer implements Serializable {
         this.resultString = resultString;
     }
 
+    public Long getOrder() {
+        return this.order;
+    }
+
+    public Answer order(Long order) {
+        this.setOrder(order);
+        return this;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
+    }
+
     public Question getQuestion() {
         return this.question;
     }
@@ -143,6 +159,7 @@ public class Answer implements Serializable {
             ", numResponses=" + getNumResponses() +
             ", resultNumeric=" + getResultNumeric() +
             ", resultString='" + getResultString() + "'" +
+            ", order=" + getOrder() +
             "}";
     }
 }

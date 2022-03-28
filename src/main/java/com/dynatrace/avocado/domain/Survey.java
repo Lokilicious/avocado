@@ -29,6 +29,7 @@ public class Survey implements Serializable {
     private Instant createdDate;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderBy("order ASC")
     @JsonIgnoreProperties(value = { "survey" }, allowSetters = true)
     private Set<Answer> answers = new HashSet<>();
 

@@ -27,6 +27,7 @@ export class AnswerUpdateComponent implements OnInit {
     numResponses: [],
     resultNumeric: [],
     resultString: [],
+    order: [],
     question: [],
     survey: [],
   });
@@ -94,6 +95,7 @@ export class AnswerUpdateComponent implements OnInit {
       numResponses: answer.numResponses,
       resultNumeric: answer.resultNumeric,
       resultString: answer.resultString,
+      order: answer.order,
       question: answer.question,
       survey: answer.survey,
     });
@@ -127,6 +129,7 @@ export class AnswerUpdateComponent implements OnInit {
       numResponses: this.editForm.get(['numResponses'])!.value,
       resultNumeric: this.editForm.get(['resultNumeric'])!.value,
       resultString: this.editForm.get(['resultString'])!.value,
+      order: this.editForm.get(['order'])!.value,
       question: this.editForm.get(['question'])!.value,
       survey: this.editForm.get(['survey'])!.value,
     };

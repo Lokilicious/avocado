@@ -6,6 +6,7 @@ export interface IAnswer {
   numResponses?: number | null;
   resultNumeric?: number | null;
   resultString?: string | null;
+  order?: number | null;
   question?: IQuestion | null;
   survey?: ISurvey | null;
 }
@@ -16,6 +17,7 @@ export class Answer implements IAnswer {
     public numResponses?: number | null,
     public resultNumeric?: number | null,
     public resultString?: string | null,
+    public order?: number | null,
     public question?: IQuestion | null,
     public survey?: ISurvey | null
   ) {}

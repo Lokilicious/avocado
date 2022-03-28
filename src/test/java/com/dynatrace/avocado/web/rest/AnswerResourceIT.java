@@ -38,6 +38,9 @@ class AnswerResourceIT {
     private static final String DEFAULT_RESULT_STRING = "AAAAAAAAAA";
     private static final String UPDATED_RESULT_STRING = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_ORDER = 1L;
+    private static final Long UPDATED_ORDER = 2L;
+
     private static final String ENTITY_API_URL = "/api/answers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +65,8 @@ class AnswerResourceIT {
         Answer answer = new Answer()
             .numResponses(DEFAULT_NUM_RESPONSES)
             .resultNumeric(DEFAULT_RESULT_NUMERIC)
-            .resultString(DEFAULT_RESULT_STRING);
+            .resultString(DEFAULT_RESULT_STRING)
+            .order(DEFAULT_ORDER);
         return answer;
     }
 
@@ -76,7 +80,8 @@ class AnswerResourceIT {
         Answer answer = new Answer()
             .numResponses(UPDATED_NUM_RESPONSES)
             .resultNumeric(UPDATED_RESULT_NUMERIC)
-            .resultString(UPDATED_RESULT_STRING);
+            .resultString(UPDATED_RESULT_STRING)
+            .order(UPDATED_ORDER);
         return answer;
     }
 
@@ -103,6 +108,7 @@ class AnswerResourceIT {
         assertThat(testAnswer.getNumResponses()).isEqualTo(DEFAULT_NUM_RESPONSES);
         assertThat(testAnswer.getResultNumeric()).isEqualTo(DEFAULT_RESULT_NUMERIC);
         assertThat(testAnswer.getResultString()).isEqualTo(DEFAULT_RESULT_STRING);
+        assertThat(testAnswer.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -139,7 +145,8 @@ class AnswerResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(answer.getId().toString())))
             .andExpect(jsonPath("$.[*].numResponses").value(hasItem(DEFAULT_NUM_RESPONSES.intValue())))
             .andExpect(jsonPath("$.[*].resultNumeric").value(hasItem(DEFAULT_RESULT_NUMERIC.doubleValue())))
-            .andExpect(jsonPath("$.[*].resultString").value(hasItem(DEFAULT_RESULT_STRING)));
+            .andExpect(jsonPath("$.[*].resultString").value(hasItem(DEFAULT_RESULT_STRING)))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER.intValue())));
     }
 
     @Test
@@ -156,7 +163,8 @@ class AnswerResourceIT {
             .andExpect(jsonPath("$.id").value(answer.getId().toString()))
             .andExpect(jsonPath("$.numResponses").value(DEFAULT_NUM_RESPONSES.intValue()))
             .andExpect(jsonPath("$.resultNumeric").value(DEFAULT_RESULT_NUMERIC.doubleValue()))
-            .andExpect(jsonPath("$.resultString").value(DEFAULT_RESULT_STRING));
+            .andExpect(jsonPath("$.resultString").value(DEFAULT_RESULT_STRING))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER.intValue()));
     }
 
     @Test
@@ -178,7 +186,11 @@ class AnswerResourceIT {
         Answer updatedAnswer = answerRepository.findById(answer.getId()).get();
         // Disconnect from session so that the updates on updatedAnswer are not directly saved in db
         em.detach(updatedAnswer);
-        updatedAnswer.numResponses(UPDATED_NUM_RESPONSES).resultNumeric(UPDATED_RESULT_NUMERIC).resultString(UPDATED_RESULT_STRING);
+        updatedAnswer
+            .numResponses(UPDATED_NUM_RESPONSES)
+            .resultNumeric(UPDATED_RESULT_NUMERIC)
+            .resultString(UPDATED_RESULT_STRING)
+            .order(UPDATED_ORDER);
 
         restAnswerMockMvc
             .perform(
@@ -196,6 +208,7 @@ class AnswerResourceIT {
         assertThat(testAnswer.getNumResponses()).isEqualTo(UPDATED_NUM_RESPONSES);
         assertThat(testAnswer.getResultNumeric()).isEqualTo(UPDATED_RESULT_NUMERIC);
         assertThat(testAnswer.getResultString()).isEqualTo(UPDATED_RESULT_STRING);
+        assertThat(testAnswer.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test
@@ -288,6 +301,7 @@ class AnswerResourceIT {
         assertThat(testAnswer.getNumResponses()).isEqualTo(UPDATED_NUM_RESPONSES);
         assertThat(testAnswer.getResultNumeric()).isEqualTo(UPDATED_RESULT_NUMERIC);
         assertThat(testAnswer.getResultString()).isEqualTo(DEFAULT_RESULT_STRING);
+        assertThat(testAnswer.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -302,7 +316,11 @@ class AnswerResourceIT {
         Answer partialUpdatedAnswer = new Answer();
         partialUpdatedAnswer.setId(answer.getId());
 
-        partialUpdatedAnswer.numResponses(UPDATED_NUM_RESPONSES).resultNumeric(UPDATED_RESULT_NUMERIC).resultString(UPDATED_RESULT_STRING);
+        partialUpdatedAnswer
+            .numResponses(UPDATED_NUM_RESPONSES)
+            .resultNumeric(UPDATED_RESULT_NUMERIC)
+            .resultString(UPDATED_RESULT_STRING)
+            .order(UPDATED_ORDER);
 
         restAnswerMockMvc
             .perform(
@@ -320,6 +338,7 @@ class AnswerResourceIT {
         assertThat(testAnswer.getNumResponses()).isEqualTo(UPDATED_NUM_RESPONSES);
         assertThat(testAnswer.getResultNumeric()).isEqualTo(UPDATED_RESULT_NUMERIC);
         assertThat(testAnswer.getResultString()).isEqualTo(UPDATED_RESULT_STRING);
+        assertThat(testAnswer.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test

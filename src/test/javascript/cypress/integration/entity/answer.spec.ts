@@ -156,6 +156,8 @@ describe('Answer e2e test', () => {
         .type('Pizza out-of-the-box synthesizing')
         .should('have.value', 'Pizza out-of-the-box synthesizing');
 
+      cy.get(`[data-cy="order"]`).type('25895').should('have.value', '25895');
+
       cy.get(entityCreateSaveButtonSelector).click();
 
       cy.wait('@postEntityRequest').then(({ response }) => {

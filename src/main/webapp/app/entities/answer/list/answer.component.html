@@ -36,6 +36,7 @@
           <th scope="col"><span>Num Responses</span></th>
           <th scope="col"><span>Result Numeric</span></th>
           <th scope="col"><span>Result String</span></th>
+          <th scope="col"><span>Order</span></th>
           <th scope="col"><span>Question</span></th>
           <th scope="col"><span>Survey</span></th>
           <th scope="col"></th>
@@ -49,6 +50,7 @@
           <td>{{ answer.numResponses }}</td>
           <td>{{ answer.resultNumeric }}</td>
           <td>{{ answer.resultString }}</td>
+          <td>{{ answer.order }}</td>
           <td>
             <div *ngIf="answer.question">
               <a [routerLink]="['/question', answer.question?.id, 'view']">{{ answer.question?.id }}</a>

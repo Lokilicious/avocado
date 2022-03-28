@@ -42,7 +42,7 @@ public class SurveyService {
         survey.setCreatedDate(new Date().toInstant());
         List<ExcelColumn> subColumns = table.getColumns().subList(5, table.getColumns().size() - 1); // last freetext question ommitted
 
-
+        long i = 0;
         for(ExcelColumn c : subColumns){
             Answer answer = new Answer();
             //answer.setId(UUID.randomUUID());
@@ -57,23 +57,25 @@ public class SurveyService {
                 answer.setQuestion(q.get());
             }
 
+            answer.setOrder(i);
             answer.setResultNumeric(getAverage(c.getValues()));
             answer.setNumResponses((long) c.getValues().size());
             survey.addAnswer(answer);
+            i++;
         }
 
         return survey;
     } 
 
     public static double getAverage(List<String> values) {
-        Integer sum = 0;
+        Float sum = 0.0f;
         for(String s : values){
             sum += parseValue(s);
         }
         return (double) sum / values.size();
     }
 
-    public static int parseValue(String s) {
+    public static float parseValue(String s) {
         switch (s) {
             case "No":
                 return 1;
@@ -83,7 +85,9 @@ public class SurveyService {
                 return 3;
             default:
                 try {
-                    return (Integer.parseInt(s) - 1) / (3 - 1);
+                    float n = Float.parseFloat(s);
+                    float ret = (n - 1) / (3 - 1);
+                    return ret;
                 } catch (NumberFormatException e) {
                     return 0;
                 }

@@ -20,6 +20,10 @@
     {
       "fieldName": "resultString",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

@@ -24,6 +24,7 @@ describe('Answer Service', () => {
       numResponses: 0,
       resultNumeric: 0,
       resultString: 'AAAAAAA',
+      order: 0,
     };
   });
 
@@ -62,6 +63,7 @@ describe('Answer Service', () => {
           numResponses: 1,
           resultNumeric: 1,
           resultString: 'BBBBBB',
+          order: 1,
         },
         elemDefault
       );
@@ -80,6 +82,7 @@ describe('Answer Service', () => {
         {
           numResponses: 1,
           resultNumeric: 1,
+          order: 1,
         },
         new Answer()
       );
@@ -102,6 +105,7 @@ describe('Answer Service', () => {
           numResponses: 1,
           resultNumeric: 1,
           resultString: 'BBBBBB',
+          order: 1,
         },
         elemDefault
       );
@@ -156,7 +160,7 @@ describe('Answer Service', () => {
         const answerArray: IAnswer[] = [
           { id: '9fec3727-3421-4967-b213-ba36557ca194' },
           { id: '1361f429-3817-4123-8ee3-fdf8943310b2' },
-          { id: 'e5e56d41-c1d6-4fef-9c63-2b87b288f9c5' },
+          { id: '5e56d41c-1d6f-4ef9-8632-b87b288f9c55' },
         ];
         const answerCollection: IAnswer[] = [{ id: '9fec3727-3421-4967-b213-ba36557ca194' }];
         expectedResult = service.addAnswerToCollectionIfMissing(answerCollection, ...answerArray);

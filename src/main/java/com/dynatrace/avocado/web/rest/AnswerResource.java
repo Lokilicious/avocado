@@ -131,6 +131,9 @@ public class AnswerResource {
                 if (answer.getResultString() != null) {
                     existingAnswer.setResultString(answer.getResultString());
                 }
+                if (answer.getOrder() != null) {
+                    existingAnswer.setOrder(answer.getOrder());
+                }
 
                 return existingAnswer;
             })

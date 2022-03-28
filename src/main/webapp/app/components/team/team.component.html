@@ -3,18 +3,17 @@
   <thead>
   <tr>
     <th>Question</th>
-    <th *ngFor="let answer of answerMap | keyvalue">{{answer.key}}</th>
+    <th *ngFor="let survey of surveys">{{survey.surveyDate}}</th>
   </tr>
   </thead>  
   <tbody>
-      <tr *ngFor="let answer of answerMap| keyvalue; first as isFirst; index as i">
-        <td *ngIf="isFirst">{{questions[i]?.text}}</td>
-        <td>
-
-          {{answer.value | json}}
-
+      <tr *ngFor="let survey of sanitizedSurveys">
+        <td>{{survey.question}}</td>
+        <td *ngFor="let result of survey.answers">
+          {{result.resultNumeric | number: '1.2-2' }}
         </td>
       </tr>
+
 
   </tbody>
 </table>
