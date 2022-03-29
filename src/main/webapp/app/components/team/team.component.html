@@ -3,13 +3,13 @@
   <thead>
   <tr>
     <th>Question</th>
-    <th *ngFor="let survey of surveys">{{survey.surveyDate}}</th>
+    <th *ngFor="let date of surveyDates">{{date | date:'MMM YYYY'}}</th>
   </tr>
   </thead>  
   <tbody>
       <tr *ngFor="let survey of sanitizedSurveys">
         <td>{{survey.question}}</td>
-        <td *ngFor="let result of survey.answers">
+        <td *ngFor="let result of survey.answers" [style.background-color]="getBackgroundColor(result.resultNumeric)">
           {{result.resultNumeric | number: '1.2-2' }}
         </td>
       </tr>
