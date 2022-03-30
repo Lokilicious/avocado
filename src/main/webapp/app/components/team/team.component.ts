@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { from, Observable, switchMap } from 'rxjs';
+import { from, Observable, Subscription, switchMap } from 'rxjs';
 import { Team } from '../../entities/team/team.model';
 import { ApiService } from '../../services/api.service';
 import { Survey } from '../../entities/survey/survey.model';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IQuestion, Question } from 'app/entities/question/question.model';
 import { Answer, IAnswer } from 'app/entities/answer/answer.model';
@@ -24,6 +24,14 @@ export class TeamComponent implements OnInit {
   public sanitizedSurveys:SanitizedSurvey[] = [];
   public backgroundColor = '';
 
+  @Input()
+  public requiredFileType = '';
+
+  public fileName = '';
+  public uploadProgress:number | undefined | null;
+  public uploadSub: Subscription | undefined | null;
+
+
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
@@ -31,8 +39,51 @@ export class TeamComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params.id) {
         this.teamId = params.id;
+        this.loadSurveys();
+        
+      }
+    });
+  }
 
-        this.surveys$ = this.apiService.getSurveys().pipe(map(surveys => surveys.filter(s => s.team?.id === this.teamId).slice(0, 3)));
+  public onFileSelected(event : any) : void {
+    const file:File = event.target.files[0];
+  
+    this.fileName = file.name;
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const upload$ = this.apiService.uploadSurvey(formData, this.teamId);
+
+    upload$.subscribe(
+      () => {
+        this.reset();
+        this.loadSurveys();
+      }
+    );
+    
+}
+
+  public cancelUpload(): void {
+    this.uploadSub!.unsubscribe();
+    this.reset();
+  }
+  
+  public reset(): void {
+    this.uploadProgress = null;
+    this.uploadSub = null;
+  }
+
+  public getBackgroundColor(value : number | null | undefined) : string {
+    const h = (value! - 1) / 8 ;
+    return this.RGBtoHex(this.HSVtoRGB(h, 0.6, 1))
+  };
+
+
+  private loadSurveys() : void {
+    this.surveyDates = [];
+    this.sanitizedSurveys = [];
+    
+    this.surveys$ = this.apiService.getSurveys().pipe(map(surveys => surveys.filter(s => s.team?.id === this.teamId).slice(0, 10)));
        
         this.surveys$.subscribe(surveys => {         
           const numAnswers = surveys[0].answers?.length ?? 0;
@@ -60,15 +111,7 @@ export class TeamComponent implements OnInit {
             this.sanitizedSurveys.push(ss);
           }           
          });
-      }
-    });
-
   }
-
-  public getBackgroundColor(value : number | null | undefined) : string {
-    const h = (value! - 1) / 8 ;
-    return this.RGBtoHex(this.HSVtoRGB(h, 0.6, 1))
-  };
 
   private RGBtoHex(color: Color): string{
       let r = color.r.toString(16);
@@ -109,7 +152,11 @@ export class TeamComponent implements OnInit {
           b: Math.floor(b! * 255)
       };
     }
+
+
 }
+
+
 
 export interface Color {
   r: number

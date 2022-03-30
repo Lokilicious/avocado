@@ -5,7 +5,6 @@ import com.dynatrace.avocado.repository.SurveyRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import com.dynatrace.avocado.domain.Answer;
 import com.dynatrace.avocado.domain.Question;
@@ -22,12 +21,10 @@ import com.dynatrace.avocado.utils.ExcelColumn;
 @Service
 @Transactional
 public class SurveyService {
-    private final SurveyRepository surveyRepository;
     private final QuestionRepository questionRepository;
 
 
-    public SurveyService(SurveyRepository surveyRepository, QuestionRepository questionRepository) {
-        this.surveyRepository = surveyRepository;
+    public SurveyService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 

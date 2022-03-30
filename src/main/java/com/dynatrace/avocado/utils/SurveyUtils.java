@@ -2,7 +2,6 @@ package com.dynatrace.avocado.utils;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import com.dynatrace.avocado.domain.Answer;
 import com.dynatrace.avocado.domain.Question;

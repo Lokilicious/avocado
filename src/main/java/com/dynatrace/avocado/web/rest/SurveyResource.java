@@ -7,7 +7,6 @@ import com.dynatrace.avocado.repository.SurveyRepository;
 import com.dynatrace.avocado.repository.TeamRepository;
 import com.dynatrace.avocado.utils.ExcelTable;
 import com.dynatrace.avocado.utils.ExcelUtils;
-import com.dynatrace.avocado.utils.SurveyUtils;
 import com.dynatrace.avocado.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import com.dynatrace.avocado.service.SurveyService;
 
@@ -56,13 +54,11 @@ public class SurveyResource {
 
     private final SurveyRepository surveyRepository;
     private final TeamRepository teamRepository;
-    private final QuestionRepository questionRepository;
     private final SurveyService surveyService;
 
     public SurveyResource(SurveyService surveyService, SurveyRepository surveyRepository, QuestionRepository questionRepository, TeamRepository teamRepository) {
         this.surveyService = surveyService;
         this.surveyRepository = surveyRepository;
-        this.questionRepository = questionRepository;
         this.teamRepository = teamRepository;
     }
 
